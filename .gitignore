@@ -1,0 +1,8 @@
+target/
+.idea/
+*.iml
+node_modules/
+*.swp
+test.js
+.DS_Store
+web/*.log
