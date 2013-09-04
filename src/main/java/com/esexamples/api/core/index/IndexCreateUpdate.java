@@ -9,27 +9,11 @@ import java.util.Map;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
-public class IndexOperation {
+public class IndexCreateUpdate {
 
     public static void createIndex(Client client, String indexName) {
         CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate(indexName);
         createIndexRequestBuilder.execute().actionGet();
-    }
-
-    public static void createIndexAndDocument(Client client, String indexName, String indexType) {
-        try {
-            client.prepareIndex(indexName, indexType)
-                    .setSource(jsonBuilder()
-                            .startObject()
-                            .field("user", "kimchy")
-                            .field("postDate", new Date())
-                            .field("message", "trying out ES")
-                            .endObject())
-                    .execute()
-                    .actionGet();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     // Add documents to index
