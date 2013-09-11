@@ -1,13 +1,9 @@
-package com.esexamples.api.core.index;
+package com.esexamples.api.operation;
 
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.client.Client;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
-
-import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 public class IndexCreateUpdate {
 
@@ -17,8 +13,8 @@ public class IndexCreateUpdate {
     }
 
     // Add documents to index
-    public static void addDocumentToIndex(Client client, String indexName, String indexType, Map<String, Object> document) {
-        client.prepareIndex(indexName, indexType)
+    public static void addDocumentToIndex(Client client, String indexName, String indexType, String id, Map<String, Object> document) {
+        client.prepareIndex(indexName, indexType, id)
                 .setSource(document)
                 .execute()
                 .actionGet();

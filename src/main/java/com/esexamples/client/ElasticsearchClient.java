@@ -1,4 +1,4 @@
-package com.esexamples.core;
+package com.esexamples.client;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
