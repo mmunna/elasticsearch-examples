@@ -14,7 +14,10 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.collect.Maps;
 import org.elasticsearch.index.get.GetField;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -109,6 +112,22 @@ public class TestApi {
                 System.out.println("Field value is " + getResponseItem.getValue().toString());
             }
         }
+
+        // multi get with fields
+        System.out.println("----------- multi get with fields -------------------");
+        Map<String, String[]> idAndFieldMap = new HashMap<String, String[]>();
+        String[] fields = new String[]  {"user", "software"};
+        idAndFieldMap.put("1", fields);
+        idAndFieldMap.put("2", fields);
+        multiGetResponses = IndexMultiGet.multiGetResponseWithFields(esClient, indexName, indexType, idAndFieldMap);
+        for (MultiGetItemResponse multiGetItemResponse : multiGetResponses.getResponses()) {
+            Map<String, GetField> getResponseMap = multiGetItemResponse.getResponse().getFields();
+            for(Map.Entry<String, GetField> getResponseEntry : getResponseMap.entrySet()) {
+                System.out.println("Field name is " + getResponseEntry.getKey());
+                System.out.println("Filed value is " + getResponseEntry.getValue().getValue().toString());
+            }
+        }
+
 
 
     }
